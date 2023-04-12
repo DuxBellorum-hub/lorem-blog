@@ -1,0 +1,11 @@
+@layout('layout')
+@section('body')
+
+<h2 class="text-center mt-5">Editer cet article : </h2>
+
+@include('blog/form')
+
+<form class="text-center mt-5 mb-5" action="{{route('post.display', {id: article.id})}}?_method=DELETE" method="POST">
+    <button class="btn btn-outline-danger">Supprimer l'article</button>
+</form>
+@endsection

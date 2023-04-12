@@ -1,0 +1,44 @@
+@layout('layout')
+@section('body')
+
+@if(posts.length > 0)
+<h2 class=" mb-5 text-center text-muted">Tous les articles sont ici:</h2>
+
+<main>
+        @each(p in posts)
+        <div class="card mb-3">
+          <h4 class="card-header">{{p.title}}</h4>
+          <img src="{{p.thumbnail.includes('loremflickr') ? p.thumbnail : '/uploads/'+p.thumbnail}}" class="d-block user-select-none" width="100%" />
+          <div class="card-body">
+            <p class="card-text">{{p.content}}</p>
+          </div>
+          <div class="card-body">
+            <a href="{{route('post.display', {id: p.id})}}" class = "card-link">Editer l'article</a>
+           
+          </div>
+          <div class="card-footer text-muted">
+           {{p.created_at}}
+          </div>
+        </div>
+              
+        @endeach
+
+</main>
+
+<nav  class="mb-5" style="margin-left: 50%; margin-right: 50%;">
+  <ul class="pagination">
+    @each(anchor in posts.getUrlsForRange(1, posts.lastPage))
+      <li class="page-item  {{anchor.isActive ? 'active' : ''}}">
+        <a href="{{anchor.url}}" class="page-link">{{anchor.page}}</a>
+      </li>
+    @endeach
+  </ul>
+</nav>
+  
+@else
+<h2 class=" mb-3 text-center text-muted">Aucun articles à afficher !</h2>
+<h1 class="text-center text-muted" style="font-size: 10rem;">...</h1>
+
+  
+@endif
+@endsection
